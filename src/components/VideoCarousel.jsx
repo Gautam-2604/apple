@@ -12,7 +12,6 @@ const VideoCarousel = () => {
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
 
-  
   const [video, setVideo] = useState({
     isEnd: false,
     startPlay: false,
@@ -31,7 +30,6 @@ const VideoCarousel = () => {
       ease: "power2.inOut", 
     });
 
-    
     gsap.to("#video", {
       scrollTrigger: {
         trigger: "#video",
@@ -122,7 +120,15 @@ const VideoCarousel = () => {
         break;
 
       case "video-last":
-        setVideo((pre) => ({ ...pre, isLastVideo: true }));
+        // Modified to automatically restart from the first video
+        setVideo((pre) => ({ 
+          ...pre, 
+          videoId: 0, 
+          isLastVideo: false,
+          isEnd: false,
+          startPlay: true,
+          isPlaying: true
+        }));
         break;
 
       case "video-reset":
